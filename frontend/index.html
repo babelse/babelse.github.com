@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hébergement de Fichiers - FileHost Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h1>FileHost Pro</h1>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalFiles">0</span>
+                        <span class="stat-label">Fichiers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalSize">0B</span>
+                        <span class="stat-label">Stockage</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('upload')">
+                <i class="fas fa-upload"></i>
+                Upload
+            </button>
+            <button class="nav-tab" onclick="showTab('files')">
+                <i class="fas fa-folder-open"></i>
+                Mes Fichiers
+            </button>
+            <button class="nav-tab" onclick="showTab('stats')">
+                <i class="fas fa-chart-bar"></i>
+                Statistiques
+            </button>
+        </nav>
+
+        <!-- Upload Tab -->
+        <div id="upload-tab" class="tab-content active">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Glissez-déposez vos fichiers ici</h3>
+                    <p>ou cliquez pour sélectionner des fichiers</p>
+                    <input type="file" id="fileInput" multiple accept="*/*" style="display: none;">
+                    <div class="upload-info">
+                        <small>Taille maximale: 100MB par fichier</small>
+                    </div>
+                </div>
+                
+                <div class="upload-progress" id="uploadProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Upload en cours...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files Tab -->
+        <div id="files-tab" class="tab-content">
+            <div class="files-header">
+                <h2>Mes Fichiers</h2>
+                <div class="files-actions">
+                    <button class="btn btn-secondary" onclick="refreshFiles()">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualiser
+                    </button>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Rechercher un fichier..." onkeyup="filterFiles()">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="files-grid" id="filesGrid">
+                <!-- Les fichiers seront affichés ici -->
+            </div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="stats-tab" class="tab-content">
+            <div class="stats-section">
+                <h2>Statistiques</h2>
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h3 id="statsFiles">0</h3>
+                            <p>Total Fichiers</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h3 id="statsSize">0B</h3>
+                            <p>Espace Utilisé</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="file-types-chart">
+                    <h3>Répartition par Type</h3>
+                    <div id="fileTypesChart">
+                        <!-- Chart sera généré ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de prévisualisation -->
+        <div id="previewModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="previewTitle">Prévisualisation</h3>
+                    <button class="modal-close" onclick="closePreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="previewContent">
+                    <!-- Contenu de prévisualisation -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
